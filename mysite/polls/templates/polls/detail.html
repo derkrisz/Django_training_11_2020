@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Here you can edit the details of question {{ question.question_text }}</title>
+</head>
+<body>
+    <section>
+        <h3>Editing {{ question.question_text }}</h3>
+        <!-- handle problems here -->
+
+        {% if error_message %}
+        <aside>{{error_message}}</aside>
+        {% endif %}
+
+        <p>{{question.id}} {{question.pub_date}}</p>
+        <form action='{% url "polls:vote" question.id %}' method='POST'>
+            <!-- we must provide security -->
+            {% csrf_token %}
+            {% if question.choice_set.all %}
+            {% for choice in question.choice_set.all %}
+                <input type='radio' name='choice' id='choice{{forloop.counter}}' value='{{choice.id}}'
+                <label for='choice{{forloop.counter}}'>{{choice.choice_text}}</label>
+                <br/>
+            {% endfor %}
+            {% else %}
+                <p>There are no choices for this question</p>
+            {% endif %}
+            <button>Go</button>
+            <a href="{% url 'polls:results' question.id %}">Check vote results</a>
+        </form>
+    </section>
+</body>
+</html>

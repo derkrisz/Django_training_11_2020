@@ -1,0 +1,12 @@
+{% extends 'weather/base.html' %}
+
+{% block title_block %} Details {% endblock %}
+
+{% block content_block %}
+    <h1>Details of {{ weather.city }}</h1>
+    <ul>      
+        <li>Country: {{ weather.country }}</li>
+        <li>Description: {{weather.description}}</li>
+        <li>Temperature: {{weather.temperature}}</li>
+    </ul>
+    {% endblock %}
